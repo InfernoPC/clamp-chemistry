@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calc Chemistry</title>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+  <script>
+  	$( document ).ready(function() {
+  		$( "button#getWeight" ).on( "click", function( event ) {
+  			var mole_weight = $("#mole_weight").val();
+  			var volumn = $("#volumn").val();
+  			var density = $("#density").val();
+  			$("#weight").val(mole_weight*volumn*density);
+			});
+  		$( "button#getVolumn" ).on( "click", function( event ) {
+  			var mole_weight = $("#mole_weight").val();
+  			var weight = $("#weight").val();
+  			var density = $("#density").val();
+  			$("#volumn").val(weight/mole_weight/density);
+			});
+  		$( "button#getDensity" ).on( "click", function( event ) {
+  			var mole_weight = $("#mole_weight").val();
+  			var weight = $("#weight").val();
+  			var volumn = $("#volumn").val();
+  			$("#density").val(weight/mole_weight/volumn);
+			});
+
+		});
+  </script>
+</head>
+<body>
+
+	<form>
+		<li>重量(g)：<input type="text" name="weight" id="weight"></li>
+		<li>分子量：<input type="text" name="mole_weight" id="mole_weight"></li>
+		<li>體積(L)：<input type="text" name="volumn" id="volumn"></li>
+		<li>濃度(M)：<input type="text" name="density" id="density"></li>
+	</form>
+
+	<button id="getWeight">算重量</button>
+	<button id="getVolumn">算體積</button>
+	<button id="getDensity">算濃度</button>
+
+</body>
+</html>
