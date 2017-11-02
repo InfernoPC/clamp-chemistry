@@ -40,7 +40,14 @@
         if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion * 1000;}
   			$("#density").val((weight/mole_weight/volumn)*unit_conversion);
 			});
+      $( "button#getDilution" ).on( "click", function( event ) {
+        var ori_density = $("#ori_density").val();
+        var dilution_density = $("#dilution_density").val();
+        var dilution_volumn = $("#dilution_volumn").val();
 
+        $("#use_ori_density").val(dilution_volumn*dilution_density/ori_density);
+        $("#diluent").val(dilution_volumn*(1-dilution_density/ori_density));
+      });
 		});
   </script>
 
@@ -67,33 +74,61 @@
 
   <div class="container">
     
-    <form id="table1">
-      <div class="form-group">
-        <label for="weight">重量：</label>
-        <input type="number" name="weight" id="weight">
-        <label><input type="radio" name="weight_unit" value="g" checked>g</label>
-        <label><input type="radio" name="weight_unit" value="mg">mg</label>
-      </div>
-      <div class="form-group">
-        <label for="mole_weight">分子量：</label>
-        <input type="number" name="mole_weight" id="mole_weight">
-      </div>
-      <div class="form-group">
-        <label for="volumn">體積：</label>
-        <input type="number" name="volumn" id="volumn">
-        <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
-        <label><input type="radio" name="volumn_unit" value="mL">mL</label>
-      </div>
-      <div class="form-group">
-        <label for="density">濃度：</label>
-        <input type="number" name="density" id="density">
-        <label><input type="radio" name="density_unit" value="M" checked>M</label>
-        <label><input type="radio" name="density_unit" value="mM">mM</label>
-      </div>
-    </form>
-  	<button id="getWeight">算重量</button>
-  	<button id="getVolumn">算體積</button>
-  	<button id="getDensity">算濃度</button>
+    <div>
+      <form id="table1">
+        <div class="form-group">
+          <label for="weight">重量：</label>
+          <input type="number" name="weight" id="weight">
+          <label><input type="radio" name="weight_unit" value="g" checked>g</label>
+          <label><input type="radio" name="weight_unit" value="mg">mg</label>
+        </div>
+        <div class="form-group">
+          <label for="mole_weight">分子量：</label>
+          <input type="number" name="mole_weight" id="mole_weight">
+        </div>
+        <div class="form-group">
+          <label for="volumn">體積：</label>
+          <input type="number" name="volumn" id="volumn">
+          <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
+          <label><input type="radio" name="volumn_unit" value="mL">mL</label>
+        </div>
+        <div class="form-group">
+          <label for="density">濃度：</label>
+          <input type="number" name="density" id="density">
+          <label><input type="radio" name="density_unit" value="M" checked>M</label>
+          <label><input type="radio" name="density_unit" value="mM">mM</label>
+        </div>
+      	<button type="button" id="getWeight">算重量</button>
+      	<button type="button" id="getVolumn">算體積</button>
+      	<button type="button" id="getDensity">算濃度</button>
+      </form>
+    </div>
+    <hr>
+    <div>
+      <form id="table2">
+        <div class="form-group">
+          <label for="ori_density">原濃度：</label>
+          <input type="number" name="ori_density" id="ori_density">
+        </div>
+        <div class="form-group">
+          <label for="dilution_density">稀釋後濃度：</label>
+          <input type="number" name="dilution_density" id="dilution_density">
+        </div>
+        <div class="form-group">
+          <label for="dilution_volumn">稀釋後體積：</label>
+          <input type="number" name="dilution_volumn" id="dilution_volumn">
+        </div>
+
+        <button type="button" id="getDilution">算稀釋</button>
+        <div class="form-group">
+          <label for="use_ori_density" >原濃度：</label>
+          <input type="number" name="use_ori_density" id="use_ori_density" disabled>
+          <label for="diluent">加 水：</label>
+          <input type="number" name="diluent" id="diluent" disabled>
+        </div>
+
+      </form>
+    </div>
   </div>
 
 </body>
