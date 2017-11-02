@@ -2,10 +2,11 @@
 <html>
 <head>
 	<title>Calc Chemistry</title>
-	<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
 
   <script>
   	$( document ).ready(function() {
@@ -14,9 +15,9 @@
   			var volumn = $("#volumn").val();
   			var density = $("#density").val();
         var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion / 1000;}
         $("#weight").val(mole_weight*volumn*density*unit_conversion);
 			});
   		$( "button#getVolumn" ).on( "click", function( event ) {
@@ -24,9 +25,9 @@
   			var weight = $("#weight").val();
   			var density = $("#density").val();
         var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion * 1000;}
   			$("#volumn").val((weight/mole_weight/density)*unit_conversion);
 			});
   		$( "button#getDensity" ).on( "click", function( event ) {
@@ -34,9 +35,9 @@
   			var weight = $("#weight").val();
   			var volumn = $("#volumn").val();
         var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion * 1000;}
   			$("#density").val((weight/mole_weight/volumn)*unit_conversion);
 			});
 
@@ -45,30 +46,36 @@
 </head>
 <body>
 
-	<form>
-		<li>
-      重量：<input type="text" name="weight" id="weight">
-      <input type="radio" name="weight_unit" value="g" checked>g
-      <input type="radio" name="weight_unit" value="mg">mg
-    </li>
-		<li>
-      分子量：<input type="text" name="mole_weight" id="mole_weight">
-    </li>
-		<li>
-      體積：<input type="text" name="volumn" id="volumn">
-      <input type="radio" name="volumn_unit" value="L" checked>L
-      <input type="radio" name="volumn_unit" value="mL">mL
-    </li>
-		<li>
-      濃度：<input type="text" name="density" id="density">
-      <input type="radio" name="density_unit" value="M" checked>M
-      <input type="radio" name="density_unit" value="mM">mM
-    </li>
-	</form>
-
-	<button id="getWeight">算重量</button>
-	<button id="getVolumn">算體積</button>
-	<button id="getDensity">算濃度</button>
+  <div class="container">
+    
+    <form>
+      <div class="form-group">
+        <label for="weight">重量：</label>
+        <input type="number" name="weight" id="weight">
+        <label><input type="radio" name="weight_unit" value="g" checked>g</label>
+        <label><input type="radio" name="weight_unit" value="mg">mg</label>
+      </div>
+      <div class="form-group">
+        <label for="mole_weight">分子量：</label>
+        <input type="number" name="mole_weight" id="mole_weight">
+      </div>
+      <div class="form-group">
+        <label for="volumn">體積：</label>
+        <input type="number" name="volumn" id="volumn">
+        <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
+        <label><input type="radio" name="volumn_unit" value="mL">mL</label>
+      </div>
+      <div class="form-group">
+        <label for="density">濃度：</label>
+        <input type="number" name="density" id="density">
+        <label><input type="radio" name="density_unit" value="M" checked>M</label>
+        <label><input type="radio" name="density_unit" value="mM">mM</label>
+      </div>
+    </form>
+  	<button id="getWeight">算重量</button>
+  	<button id="getVolumn">算體積</button>
+  	<button id="getDensity">算濃度</button>
+  </div>
 
 </body>
 </html>
