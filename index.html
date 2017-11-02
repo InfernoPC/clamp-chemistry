@@ -2,12 +2,14 @@
 <html>
 <head>
 	<title>Calc Chemistry</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
-
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   	$( document ).ready(function() {
   		$( "button#getWeight" ).on( "click", function( event ) {
@@ -48,7 +50,10 @@
         $("#use_ori_density").val(dilution_volumn*dilution_density/ori_density);
         $("#diluent").val(dilution_volumn*(1-dilution_density/ori_density));
       });
+
+      $( "#tabs" ).tabs();
 		});
+
   </script>
 
   <style type="text/css">
@@ -73,61 +78,66 @@
 <body>
 
   <div class="container">
-    
-    <div>
-      <form id="table1">
-        <div class="form-group">
-          <label for="weight">重量：</label>
-          <input type="number" name="weight" id="weight">
-          <label><input type="radio" name="weight_unit" value="g" checked>g</label>
-          <label><input type="radio" name="weight_unit" value="mg">mg</label>
-        </div>
-        <div class="form-group">
-          <label for="mole_weight">分子量：</label>
-          <input type="number" name="mole_weight" id="mole_weight">
-        </div>
-        <div class="form-group">
-          <label for="volumn">體積：</label>
-          <input type="number" name="volumn" id="volumn">
-          <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
-          <label><input type="radio" name="volumn_unit" value="mL">mL</label>
-        </div>
-        <div class="form-group">
-          <label for="density">濃度：</label>
-          <input type="number" name="density" id="density">
-          <label><input type="radio" name="density_unit" value="M" checked>M</label>
-          <label><input type="radio" name="density_unit" value="mM">mM</label>
-        </div>
-      	<button type="button" id="getWeight">算重量</button>
-      	<button type="button" id="getVolumn">算體積</button>
-      	<button type="button" id="getDensity">算濃度</button>
-      </form>
-    </div>
-    <hr>
-    <div>
-      <form id="table2">
-        <div class="form-group">
-          <label for="ori_density">原濃度：</label>
-          <input type="number" name="ori_density" id="ori_density">
-        </div>
-        <div class="form-group">
-          <label for="dilution_density">稀釋後濃度：</label>
-          <input type="number" name="dilution_density" id="dilution_density">
-        </div>
-        <div class="form-group">
-          <label for="dilution_volumn">稀釋後體積：</label>
-          <input type="number" name="dilution_volumn" id="dilution_volumn">
-        </div>
+    <div id="tabs">
+      <ul>
+        <li><a href="#table1">重量/體積/濃度換算</a></li>
+        <li><a href="#table2">稀釋計算</a></li>
+      </ul>
 
-        <button type="button" id="getDilution">算稀釋</button>
-        <div class="form-group">
-          <label for="use_ori_density" >原濃度：</label>
-          <input type="number" name="use_ori_density" id="use_ori_density" disabled>
-          <label for="diluent">加 水：</label>
-          <input type="number" name="diluent" id="diluent" disabled>
-        </div>
+      <div>
+        <form id="table1">
+          <div class="form-group">
+            <label for="weight">重量：</label>
+            <input type="number" name="weight" id="weight">
+            <label><input type="radio" name="weight_unit" value="g" checked>g</label>
+            <label><input type="radio" name="weight_unit" value="mg">mg</label>
+          </div>
+          <div class="form-group">
+            <label for="mole_weight">分子量：</label>
+            <input type="number" name="mole_weight" id="mole_weight">
+          </div>
+          <div class="form-group">
+            <label for="volumn">體積：</label>
+            <input type="number" name="volumn" id="volumn">
+            <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
+            <label><input type="radio" name="volumn_unit" value="mL">mL</label>
+          </div>
+          <div class="form-group">
+            <label for="density">濃度：</label>
+            <input type="number" name="density" id="density">
+            <label><input type="radio" name="density_unit" value="M" checked>M</label>
+            <label><input type="radio" name="density_unit" value="mM">mM</label>
+          </div>
+          <button type="button" id="getWeight">算重量</button>
+          <button type="button" id="getVolumn">算體積</button>
+          <button type="button" id="getDensity">算濃度</button>
+        </form>
+      </div>
+      <div>
+        <form id="table2">
+          <div class="form-group">
+            <label for="ori_density">原濃度：</label>
+            <input type="number" name="ori_density" id="ori_density">
+          </div>
+          <div class="form-group">
+            <label for="dilution_density">稀釋後濃度：</label>
+            <input type="number" name="dilution_density" id="dilution_density">
+          </div>
+          <div class="form-group">
+            <label for="dilution_volumn">稀釋後體積：</label>
+            <input type="number" name="dilution_volumn" id="dilution_volumn">
+          </div>
 
-      </form>
+          <button type="button" id="getDilution">算稀釋</button>
+          <div class="form-group">
+            <label for="use_ori_density" >原濃度：</label>
+            <input type="number" name="use_ori_density" id="use_ori_density" disabled>
+            <label for="diluent">加 水：</label>
+            <input type="number" name="diluent" id="diluent" disabled>
+          </div>
+
+        </form>
+      </div>
     </div>
   </div>
 
