@@ -13,19 +13,31 @@
   			var mole_weight = $("#mole_weight").val();
   			var volumn = $("#volumn").val();
   			var density = $("#density").val();
-  			$("#weight").val(mole_weight*volumn*density);
+        var unit_conversion = 1;
+        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion / 1000;}
+        $("#weight").val(mole_weight*volumn*density*unit_conversion);
 			});
   		$( "button#getVolumn" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
   			var weight = $("#weight").val();
   			var density = $("#density").val();
-  			$("#volumn").val(weight/mole_weight/density);
+        var unit_conversion = 1;
+        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion * 1000;}
+        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion / 1000;}
+  			$("#volumn").val((weight/mole_weight/density)*unit_conversion);
 			});
   		$( "button#getDensity" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
   			var weight = $("#weight").val();
   			var volumn = $("#volumn").val();
-  			$("#density").val(weight/mole_weight/volumn);
+        var unit_conversion = 1;
+        if($('input[name=weight_unit]:checked', 'form').val() == "mg"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=volumn_unit]:checked', 'form').val() == "mL"){unit_conversion = unit_conversion / 1000;}
+        if($('input[name=density_unit]:checked', 'form').val() == "mM"){unit_conversion = unit_conversion * 1000;}
+  			$("#density").val((weight/mole_weight/volumn)*unit_conversion);
 			});
 
 		});
@@ -34,10 +46,24 @@
 <body>
 
 	<form>
-		<li>重量(g)：<input type="text" name="weight" id="weight"></li>
-		<li>分子量：<input type="text" name="mole_weight" id="mole_weight"></li>
-		<li>體積(L)：<input type="text" name="volumn" id="volumn"></li>
-		<li>濃度(M)：<input type="text" name="density" id="density"></li>
+		<li>
+      重量：<input type="text" name="weight" id="weight">
+      <input type="radio" name="weight_unit" value="g" checked>g
+      <input type="radio" name="weight_unit" value="mg">mg
+    </li>
+		<li>
+      分子量：<input type="text" name="mole_weight" id="mole_weight">
+    </li>
+		<li>
+      體積：<input type="text" name="volumn" id="volumn">
+      <input type="radio" name="volumn_unit" value="L" checked>L
+      <input type="radio" name="volumn_unit" value="mL">mL
+    </li>
+		<li>
+      濃度：<input type="text" name="density" id="density">
+      <input type="radio" name="density_unit" value="M" checked>M
+      <input type="radio" name="density_unit" value="mM">mM
+    </li>
 	</form>
 
 	<button id="getWeight">算重量</button>
