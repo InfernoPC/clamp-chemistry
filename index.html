@@ -12,36 +12,30 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   	$( document ).ready(function() {
+      // table 1
   		$( "button#getWeight" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
-  			var volumn = $("#volumn").val();
-  			var density = $("#density").val();
-        var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion / 1000;}
-        $("#weight").val(mole_weight*volumn*density*unit_conversion);
+  			var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
+  			var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
+        var unit_conversion = parseFloat($('input[name=weight_unit]:checked', '#table1').val());
+        $("#weight").val(mole_weight*volumn*density/unit_conversion);
 			});
   		$( "button#getVolumn" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
-  			var weight = $("#weight").val();
-  			var density = $("#density").val();
-        var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion * 1000;}
-  			$("#volumn").val((weight/mole_weight/density)*unit_conversion);
+  			var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
+        var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
+        var unit_conversion = parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
+  			$("#volumn").val((weight/mole_weight/density)/unit_conversion);
 			});
   		$( "button#getDensity" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
-  			var weight = $("#weight").val();
-  			var volumn = $("#volumn").val();
-        var unit_conversion = 1;
-        if($('input[name=weight_unit]:checked', '#table1').val() == "mg"){unit_conversion = unit_conversion / 1000;}
-        if($('input[name=volumn_unit]:checked', '#table1').val() == "mL"){unit_conversion = unit_conversion * 1000;}
-        if($('input[name=density_unit]:checked', '#table1').val() == "mM"){unit_conversion = unit_conversion * 1000;}
-  			$("#density").val((weight/mole_weight/volumn)*unit_conversion);
+        var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
+        var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
+        var unit_conversion = parseFloat($('input[name=density_unit]:checked', '#table1').val());
+  			$("#density").val((weight/mole_weight/volumn)/unit_conversion);
 			});
+
+      // table 2
       $( "button#getDilution" ).on( "click", function( event ) {
         var ori_density = $("#ori_density").val() * parseFloat($('input[name=ori_density_unit]:checked', '#table2').val());
         var dilution_density = $("#dilution_density").val() * parseFloat($('input[name=dilution_density_unit]:checked', '#table2').val());
@@ -58,6 +52,7 @@
         }
       });
 
+      // tabs
       $( "#tabs" ).tabs();
 		});
 
@@ -68,13 +63,13 @@
       height: 100%;
     }
     body{
-      /*background-color: #9b9bfb;*/
       background-image: url("https://i.imgur.com/RuLN4t2.jpg");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       opacity: 0.8;
     }
     .container{
+      padding-top: 30px;
       background-color: white;
       min-height: 100%;
     }
@@ -98,8 +93,8 @@
           <div class="form-group">
             <label for="weight">重量：</label>
             <input type="number" name="weight" id="weight">
-            <label><input type="radio" name="weight_unit" value="g" checked>g</label>
-            <label><input type="radio" name="weight_unit" value="mg">mg</label>
+            <label><input type="radio" name="weight_unit" value="1" checked>g</label>
+            <label><input type="radio" name="weight_unit" value="0.001">mg</label>
           </div>
           <div class="form-group">
             <label for="mole_weight">分子量：</label>
@@ -108,14 +103,14 @@
           <div class="form-group">
             <label for="volumn">體積：</label>
             <input type="number" name="volumn" id="volumn">
-            <label><input type="radio" name="volumn_unit" value="L" checked>L</label>
-            <label><input type="radio" name="volumn_unit" value="mL">mL</label>
+            <label><input type="radio" name="volumn_unit" value="1" checked>L</label>
+            <label><input type="radio" name="volumn_unit" value="0.001">mL</label>
           </div>
           <div class="form-group">
             <label for="density">濃度：</label>
             <input type="number" name="density" id="density">
-            <label><input type="radio" name="density_unit" value="M" checked>M</label>
-            <label><input type="radio" name="density_unit" value="mM">mM</label>
+            <label><input type="radio" name="density_unit" value="1" checked>M</label>
+            <label><input type="radio" name="density_unit" value="0.001">mM</label>
           </div>
           <button type="button" id="getWeight">算重量</button>
           <button type="button" id="getVolumn">算體積</button>
@@ -161,7 +156,7 @@
             <label><input type="radio" name="diluent_unit" value="0.001">mL</label>
             <label><input type="radio" name="diluent_unit" value="0.000001">uL</label>
           </div>
-          <p class="hint">hint: 當稀釋倍率超過1000倍時將省略stock的體積</p>
+          <p class="hint">hint: 當稀釋倍率大於1000倍時將省略stock的體積</p>
         </form>
       </div>
     </div>
