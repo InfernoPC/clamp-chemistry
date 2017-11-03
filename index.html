@@ -46,10 +46,16 @@
         var ori_density = $("#ori_density").val() * parseFloat($('input[name=ori_density_unit]:checked', '#table2').val());
         var dilution_density = $("#dilution_density").val() * parseFloat($('input[name=dilution_density_unit]:checked', '#table2').val());
         var dilution_volumn = $("#dilution_volumn").val();
-        var use_ori_density_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=use_ori_density_unit]:checked', '#table2').val())
-        var diluent_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=diluent_unit]:checked', '#table2').val())
+        var use_ori_density_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=use_ori_density_unit]:checked', '#table2').val());
+        var diluent_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=diluent_unit]:checked', '#table2').val());
         $("#use_ori_density").val((dilution_volumn*dilution_density/ori_density)*use_ori_density_conversion);
-        $("#diluent").val((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion);
+        var dilution_ratio = ori_density / dilution_density;
+        if(dilution_ratio >= 1000){
+          // ignore stock volumn
+          $("#diluent").val(dilution_volumn*diluent_conversion);
+        }else{
+          $("#diluent").val((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion);
+        }
       });
 
       $( "#tabs" ).tabs();
@@ -72,7 +78,9 @@
       background-color: white;
       min-height: 100%;
     }
-
+    .hint{
+      color: red;
+    }
   </style>
 
 </head>
@@ -153,7 +161,7 @@
             <label><input type="radio" name="diluent_unit" value="0.001">mL</label>
             <label><input type="radio" name="diluent_unit" value="0.000001">uL</label>
           </div>
-
+          <p class="hint">hint: 當稀釋倍率超過1000倍時將省略stock的體積</p>
         </form>
       </div>
     </div>
