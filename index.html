@@ -43,12 +43,13 @@
   			$("#density").val((weight/mole_weight/volumn)*unit_conversion);
 			});
       $( "button#getDilution" ).on( "click", function( event ) {
-        var ori_density = $("#ori_density").val();
-        var dilution_density = $("#dilution_density").val();
+        var ori_density = $("#ori_density").val() * parseFloat($('input[name=ori_density_unit]:checked', '#table2').val());
+        var dilution_density = $("#dilution_density").val() * parseFloat($('input[name=dilution_density_unit]:checked', '#table2').val());
         var dilution_volumn = $("#dilution_volumn").val();
-
-        $("#use_ori_density").val(dilution_volumn*dilution_density/ori_density);
-        $("#diluent").val(dilution_volumn*(1-dilution_density/ori_density));
+        var use_ori_density_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=use_ori_density_unit]:checked', '#table2').val())
+        var diluent_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=diluent_unit]:checked', '#table2').val())
+        $("#use_ori_density").val((dilution_volumn*dilution_density/ori_density)*use_ori_density_conversion);
+        $("#diluent").val((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion);
       });
 
       $( "#tabs" ).tabs();
@@ -118,22 +119,39 @@
           <div class="form-group">
             <label for="ori_density">原濃度：</label>
             <input type="number" name="ori_density" id="ori_density">
+            <label><input type="radio" name="ori_density_unit" value="1" checked>M</label>
+            <label><input type="radio" name="ori_density_unit" value="0.001">mM</label>
+            <label><input type="radio" name="ori_density_unit" value="0.000001">uM</label>
+            <label><input type="radio" name="ori_density_unit" value="0.000000001">nM</label>
           </div>
           <div class="form-group">
             <label for="dilution_density">稀釋後濃度：</label>
             <input type="number" name="dilution_density" id="dilution_density">
+            <label><input type="radio" name="dilution_density_unit" value="1" checked>M</label>
+            <label><input type="radio" name="dilution_density_unit" value="0.001">mM</label>
+            <label><input type="radio" name="dilution_density_unit" value="0.000001">uM</label>
+            <label><input type="radio" name="dilution_density_unit" value="0.000000001">nM</label>
           </div>
           <div class="form-group">
             <label for="dilution_volumn">稀釋後體積：</label>
             <input type="number" name="dilution_volumn" id="dilution_volumn">
+            <label><input type="radio" name="dilution_volumn_unit" value="1" checked>L</label>
+            <label><input type="radio" name="dilution_volumn_unit" value="0.001">mL</label>
+            <label><input type="radio" name="dilution_volumn_unit" value="0.000001">uL</label>
           </div>
 
           <button type="button" id="getDilution">算稀釋</button>
           <div class="form-group">
             <label for="use_ori_density" >原濃度：</label>
             <input type="number" name="use_ori_density" id="use_ori_density" disabled>
+            <label><input type="radio" name="use_ori_density_unit" value="1" checked>L</label>
+            <label><input type="radio" name="use_ori_density_unit" value="0.001">mL</label>
+            <label><input type="radio" name="use_ori_density_unit" value="0.000001">uL</label>
             <label for="diluent">加 水：</label>
             <input type="number" name="diluent" id="diluent" disabled>
+            <label><input type="radio" name="diluent_unit" value="1" checked>L</label>
+            <label><input type="radio" name="diluent_unit" value="0.001">mL</label>
+            <label><input type="radio" name="diluent_unit" value="0.000001">uL</label>
           </div>
 
         </form>
