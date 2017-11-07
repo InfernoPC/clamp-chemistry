@@ -18,21 +18,21 @@
   			var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
   			var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
         var unit_conversion = parseFloat($('input[name=weight_unit]:checked', '#table1').val());
-        $("#weight").val(mole_weight*volumn*density/unit_conversion);
+        $("#weight").val((mole_weight*volumn*density/unit_conversion).toFixed(2));
 			});
   		$( "button#getVolumn" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
   			var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
         var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
         var unit_conversion = parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
-  			$("#volumn").val((weight/mole_weight/density)/unit_conversion);
+  			$("#volumn").val(((weight/mole_weight/density)/unit_conversion).toFixed(2));
 			});
   		$( "button#getDensity" ).on( "click", function( event ) {
   			var mole_weight = $("#mole_weight").val();
         var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
         var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
         var unit_conversion = parseFloat($('input[name=density_unit]:checked', '#table1').val());
-  			$("#density").val((weight/mole_weight/volumn)/unit_conversion);
+  			$("#density").val(((weight/mole_weight/volumn)/unit_conversion).toFixed(2));
 			});
 
       // table 2
@@ -46,9 +46,9 @@
         var dilution_ratio = ori_density / dilution_density;
         if(dilution_ratio >= 1000){
           // ignore stock volumn
-          $("#diluent").val(dilution_volumn*diluent_conversion);
+          $("#diluent").val((dilution_volumn*diluent_conversion).toFixed(2));
         }else{
-          $("#diluent").val((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion);
+          $("#diluent").val(((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion).toFixed(2));
         }
       });
 
