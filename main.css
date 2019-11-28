@@ -1,0 +1,17 @@
+html, body{
+  height: 100%;
+}
+body{
+  background-image: url("https://i.imgur.com/RuLN4t2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.8;
+}
+.container{
+  padding-top: 30px;
+  background-color: white;
+  min-height: 100%;
+}
+.hint{
+  color: red;
+}

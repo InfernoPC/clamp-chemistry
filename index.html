@@ -10,74 +10,9 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  	$( document ).ready(function() {
-      // table 1
-  		$( "button#getWeight" ).on( "click", function( event ) {
-  			var mole_weight = $("#mole_weight").val();
-  			var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
-  			var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
-        var unit_conversion = parseFloat($('input[name=weight_unit]:checked', '#table1').val());
-        $("#weight").val((mole_weight*volumn*density/unit_conversion).toFixed(4));
-			});
-  		$( "button#getVolumn" ).on( "click", function( event ) {
-  			var mole_weight = $("#mole_weight").val();
-  			var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
-        var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
-        var unit_conversion = parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
-  			$("#volumn").val(((weight/mole_weight/density)/unit_conversion).toFixed(4));
-			});
-  		$( "button#getDensity" ).on( "click", function( event ) {
-  			var mole_weight = $("#mole_weight").val();
-        var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
-        var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
-        var unit_conversion = parseFloat($('input[name=density_unit]:checked', '#table1').val());
-  			$("#density").val(((weight/mole_weight/volumn)/unit_conversion).toFixed(4));
-			});
+  <script src="main.js"></script>
 
-      // table 2
-      $( "button#getDilution" ).on( "click", function( event ) {
-        var ori_density = $("#ori_density").val() * parseFloat($('input[name=ori_density_unit]:checked', '#table2').val());
-        var dilution_density = $("#dilution_density").val() * parseFloat($('input[name=dilution_density_unit]:checked', '#table2').val());
-        var dilution_volumn = $("#dilution_volumn").val();
-        var use_ori_density_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=use_ori_density_unit]:checked', '#table2').val());
-        var diluent_conversion = parseFloat($('input[name=dilution_volumn_unit]:checked', '#table2').val()) / parseFloat($('input[name=diluent_unit]:checked', '#table2').val());
-        $("#use_ori_density").val((dilution_volumn*dilution_density/ori_density)*use_ori_density_conversion);
-        var dilution_ratio = ori_density / dilution_density;
-        if(dilution_ratio >= 1000){
-          // ignore stock volumn
-          $("#diluent").val((dilution_volumn*diluent_conversion).toFixed(4));
-        }else{
-          $("#diluent").val(((dilution_volumn*(1-dilution_density/ori_density))*diluent_conversion).toFixed(4));
-        }
-      });
-
-      // tabs
-      $( "#tabs" ).tabs();
-		});
-
-  </script>
-
-  <style type="text/css">
-    html, body{
-      height: 100%;
-    }
-    body{
-      background-image: url("https://i.imgur.com/RuLN4t2.jpg");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      opacity: 0.8;
-    }
-    .container{
-      padding-top: 30px;
-      background-color: white;
-      min-height: 100%;
-    }
-    .hint{
-      color: red;
-    }
-  </style>
-
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
 
