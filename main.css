@@ -15,3 +15,27 @@ body{
 .hint{
   color: red;
 }
+#table1-log td{
+	text-align: right;
+}
+#table1-log tr td:nth-child(2)::before{
+	content: "(";
+}
+#table1-log tr td:nth-child(2)::after{
+	content: ") = ";
+}
+#table1-log tr td:nth-child(3)::after{
+	content: " X ";
+}
+#table1-log tr td:nth-child(5)::before{
+	content: "(";
+}
+#table1-log tr td:nth-child(5)::after{
+	content: ") X ";
+}
+#table1-log tr td:nth-child(7)::before{
+	content: "(";
+}
+#table1-log tr td:nth-child(7)::after{
+	content: ")";
+}

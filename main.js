@@ -1,3 +1,18 @@
+function insert_to_table1_log(){
+  var row = `
+    <tr>
+      <td>` + ($("#weight").val()*1).toFixed(4) + `</td>
+      <td>` + $("input[name='weight_unit']:checked").parent('label').text() + `</td>
+      <td>` + ($("#mole_weight").val()*1).toFixed(4) + `</td>
+      <td>` + ($("#volumn").val()*1).toFixed(4) + `</td>
+      <td>` + $("input[name='volumn_unit']:checked").parent('label').text() + `</td>
+      <td>` + ($("#density").val()*1).toFixed(4) + `</td>
+      <td>` + $("input[name='density_unit']:checked").parent('label').text() + `</td>
+    </tr>
+  `
+	$("#table1-log tr:first").before(row);
+}
+
 $( document ).ready(function() {
 	// table 1
   $( "button#getWeight" ).on( "click", function( event ) {
@@ -5,21 +20,27 @@ $( document ).ready(function() {
   	var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
   	var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
   	var unit_conversion = parseFloat($('input[name=weight_unit]:checked', '#table1').val());
-  	$("#weight").val((mole_weight*volumn*density/unit_conversion).toFixed(4));
+  	var weight = (mole_weight*volumn*density/unit_conversion).toFixed(4);
+  	$("#weight").val(weight);
+		insert_to_table1_log();
 	});
   $( "button#getVolumn" ).on( "click", function( event ) {
   	var mole_weight = $("#mole_weight").val();
   	var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
   	var density = $("#density").val() * parseFloat($('input[name=density_unit]:checked', '#table1').val());
   	var unit_conversion = parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
-		$("#volumn").val(((weight/mole_weight/density)/unit_conversion).toFixed(4));
+    var volumn = ((weight/mole_weight/density)/unit_conversion).toFixed(4);
+		$("#volumn").val(volumn);
+    insert_to_table1_log();
 	});
   $( "button#getDensity" ).on( "click", function( event ) {
   	var mole_weight = $("#mole_weight").val();
   	var weight = $("#weight").val() * parseFloat($('input[name=weight_unit]:checked', '#table1').val());
   	var volumn = $("#volumn").val() * parseFloat($('input[name=volumn_unit]:checked', '#table1').val());
   	var unit_conversion = parseFloat($('input[name=density_unit]:checked', '#table1').val());
-  	$("#density").val(((weight/mole_weight/volumn)/unit_conversion).toFixed(4));
+    var density = ((weight/mole_weight/volumn)/unit_conversion).toFixed(4);
+  	$("#density").val(density);
+    insert_to_table1_log();
 	});
 
   // table 2
